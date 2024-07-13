@@ -27,7 +27,6 @@ app.post('/register', [
       const user = await User.create({ email, password, timezone });
       res.status(201).json(user);
     } catch (err) {
-      console.log(err, 'err >>>>>');
       res.status(500).json({ error: 'Internal Server Error' })
     }
   }
@@ -47,7 +46,6 @@ app.get('/notification/:userId', async (req, res) => {
 cron.schedule('* * * * *', async () => {
   console.log('notification cron run every second');
   const users = await User.findAll();
-  console.log(users, '>>> users');
   users.forEach(user => sendNotification(user));
 });
 
